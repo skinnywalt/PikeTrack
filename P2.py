@@ -1,6 +1,8 @@
 import streamlit as st
 
 import main_file as mf
+import P1, P3, P4
+
 
 def call_P2():
     st.header("Add a New User")
@@ -11,9 +13,10 @@ def call_P2():
     if st.button("Add User"):
         if name and email:
             user_id = mf.add_user(name, email, netID)
-            #if user_id:
-            st.success(f"User {name} added with ID: {user_id}")
-            #else:
-                #st.error(f"Invalid NedID: {netID} or Email : {email}")
+            if user_id:
+                st.success(f"User {name} added with ID: {user_id}")
+                P4.call_P4(user_id)
+            else:
+                st.error(f"Invalid NedID: {netID} or Email : {email}")
         else:
             st.error("Please provide both name and email.")
