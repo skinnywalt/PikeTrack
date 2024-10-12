@@ -4,27 +4,28 @@ from datetime import datetime
 
 import P1, P2, p3, P4
 
-# Connect to MongoDB
-client = MongoClient("mongodb+srv://test_user1:test_user1@cluster0.7wn3d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
-db = client['library']
-users_collection = db['hour_tracker']
-sessions_collection = db['sessions']
+def connect_db():
+    # Connect to MongoDB
+    client = MongoClient("mongodb+srv://test_user1:test_user1@cluster0.7wn3d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+    db = client['library']
+    users_collection = db['hour_tracker']
+    sessions_collection = db['sessions']
 
 
 def main():
+    # Connect to MongoDB
+    connect_db()
     
+    #Signup = True & Login = False 
+    p2_redirect = P1.call_P1()
     
-    #P1.call_P1()
-    P2.call_P2()
+    if p2_redirect:
+        P2.call_P2()
+    else:
+        P3.call_P3()
+        
     
-    
-    
-    
-    
-    
-    
-    
-    
+        
     
     
     
