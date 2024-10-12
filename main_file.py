@@ -40,5 +40,11 @@ def add_user(name, email, netID):
     user = {"name": name, "NetID": netID, "Student Email": email}
     result = users_collection.insert_one(user)
     
-    return result.inserted_id
+    return 1 #result.inserted_id
+
+def clock_in():
+    pass
+    
+def clock_out():
+    pass
 
