@@ -17,7 +17,7 @@ users_collection.create_index("NetID", unique=True)
 
 def main():
     start_prog = P1.call_P1()
-    # if p2_redirect:
+
     if start_prog:
         P2.call_P2(users_collection)
         
@@ -83,17 +83,21 @@ def clock_out(user_id, netID):
     clock_out_time = user.get("clock_out")
     added_time = clock_out_time - clock_in_time
     
-    st.success(f"Added Time: {added_time}")
+    min_time = added_time
+    min_time /= 60
+    
+    st.success(f"Added Time: {min_time:.2f} minutes")
     
     curr_total = user.get("Total_time")
     total_time = curr_total + added_time
+    total_time /= 60
     
     users_collection.update_one({"_id": user_obj_id}, {"$set": {"Total_time": total_time}})
     
     users_collection.update_one({"_id": user_obj_id}, {"$unset": {"clock_in": ""}})  # Remove the clock_out field)
     users_collection.update_one({"_id": user_obj_id}, {"$unset": {"clock_out": ""}})
     
-    st.success(f"{netID} Clock Out Successfull!")
+    st.success(f"{netID} Clock Out Successfull!\n Total Time for {netID} = {total_time:.2f} min")
     return 
     
     
