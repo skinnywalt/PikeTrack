@@ -45,14 +45,33 @@ def add_user(name, email, netID):
     return result.inserted_id
 
 def clock_in(user_id):
-    session = {
-        "user_id": user_id,
-        "start_time": datetime.now(),  # Capture current time
-        "end_time": None,  # End time will be updated when the session ends
-        "hours_logged": None
-    }
-    result = sessions_collection.insert_one(session)
-    return result.inserted_id
+    
+    #fetch the user_id and then add clock_in tiem as key
+    st.success("I am here")
+    print("Clock in called successfully")
+    user_obj_id = ObjectId(user_id)
+    
+    # user = {"clock_in": "12:00"}
+    # result = users_collection.insert_one(user)
+    
+    user = users_collection.find_one({"_id": user_obj_id})
+    if user:
+        print("User found:", user)
+        
+        time =  datetime.now()
+        new_field = {"$set": {"clock_in": time}}
+        result = users_collection.update_one({"_id": user_obj_id}, new_field)
+    else:
+        print("User not found")
+    
+    # session = {
+    #     "user_id": user_id,
+    #     "start_time": datetime.now(),  # Capture current time
+    #     "end_time": None,  # End time will be updated when the session ends
+    #     "hours_logged": None
+    # }
+    #result = sessions_collection.insert_one(session)
+    
     
 def clock_out(user_id):
     pass
