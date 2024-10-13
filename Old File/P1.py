@@ -7,10 +7,6 @@ def call_P1():
     st.image("assets/P1.png", caption="P1_page")
 
     checkbox_value = st.checkbox("START")
+
     if checkbox_value:
         return True
-    
-        
-    
-    #Return True if Signup
-    #Return Flase if Login
