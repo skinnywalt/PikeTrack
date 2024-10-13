@@ -1,6 +1,7 @@
 import streamlit as st
 from pymongo import MongoClient
 from datetime import datetime
+from bson import ObjectId
 
 import P1, P2, P3, P4
 
@@ -47,22 +48,21 @@ def add_user(name, email, netID):
 def clock_in(user_id):
     
     #fetch the user_id and then add clock_in tiem as key
-    st.success("I am here")
-    print("Clock in called successfully")
+    
     user_obj_id = ObjectId(user_id)
     
     # user = {"clock_in": "12:00"}
     # result = users_collection.insert_one(user)
     
-    user = users_collection.find_one({"_id": user_obj_id})
-    if user:
-        print("User found:", user)
+    # user = users_collection.find_one({"_id": user_obj_id})
+    # if user:
+    #     print("User found:", user)
         
-        time =  datetime.now()
-        new_field = {"$set": {"clock_in": time}}
-        result = users_collection.update_one({"_id": user_obj_id}, new_field)
-    else:
-        print("User not found")
+    time =  datetime.now()
+    new_field = {"$set": {"clock_in": time}}
+    result = users_collection.update_one({"_id": user_obj_id}, new_field)
+    # else:
+    #     print("User not found")
     
     # session = {
     #     "user_id": user_id,
