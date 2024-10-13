@@ -17,9 +17,9 @@ def call_P2():
             if user_id:
                 #import pdb; pdb.set_trace()
                 st.success(f"User {name} added with ID: {user_id}")
-                P4.call_P4(user_id)
+                P4.call_P4(user_id, users_collection)
                 #P4.call_P4(user_id)
             else:
-                st.error(f"Invalid NedID: {netID} or Email : {email}")
+                P3.call_P3(users_collection)
         else:
             st.error("Please provide both name and email.")

@@ -2,6 +2,7 @@ import streamlit as st
 from pymongo import MongoClient
 from datetime import datetime
 from bson import ObjectId
+import time
 
 import P1, P2, P3, P4
 
@@ -21,7 +22,7 @@ def main():
     # p2_redirect = P1.call_P1()
     
     # if p2_redirect:
-    P2.call_P2()
+    P2.call_P2(users_collection)
     # else:
     #     P3.call_P3()
     
@@ -40,39 +41,41 @@ if __name__ == "__main__":
 def add_user(name, email, netID):
     #Validate first 
     
-    user = {"name": name, "NetID": netID, "Student Email": email}
-    result = users_collection.insert_one(user)
+    #User Validation
+    user_obj_id = ObjectId(user_id)
+    user = users_collection.find_one({"_id": user_obj_id})
     
-    return result.inserted_id
+    if user:
+        return False  
+    else:
+        user = {"Name": name, "NetID": netID, "Student Email": email, "clock_in_status" : False}
+        result = users_collection.insert_one(user) 
+        #st.error(f"Invalid NedID: {netID} or Email : {email}")
+        return result.inserted_id
+    
+    
+    
+    
 
 def clock_in(user_id):
-    
-    #fetch the user_id and then add clock_in tiem as key
-    
+    #fetch the user_id and then add clock_in tiem as key      
     user_obj_id = ObjectId(user_id)
-    
-    # user = {"clock_in": "12:00"}
-    # result = users_collection.insert_one(user)
-    
-    # user = users_collection.find_one({"_id": user_obj_id})
-    # if user:
-    #     print("User found:", user)
-        
-    time =  datetime.now()
-    new_field = {"$set": {"clock_in": time}}
+    time1 =  time.time()
+    new_field = {"$set": {"clock_in": time1}}
     result = users_collection.update_one({"_id": user_obj_id}, new_field)
-    # else:
-    #     print("User not found")
     
-    # session = {
-    #     "user_id": user_id,
-    #     "start_time": datetime.now(),  # Capture current time
-    #     "end_time": None,  # End time will be updated when the session ends
-    #     "hours_logged": None
-    # }
-    #result = sessions_collection.insert_one(session)
-    
-    
-def clock_out(user_id):
-    pass
+    users_collection.update_one({"_id": user_obj_id}, {"$set": {"clock_in_status": True}})
+    return 
 
+def clock_out(user_id):
+    user_obj_id = ObjectId(user_id)
+    time2 =  time.time()
+    new_field = {"$set": {"clock_out": time2}}
+    result = users_collection.update_one({"_id": user_obj_id}, new_field)
+
+    users_collection.update_one({"_id": user_obj_id}, {"$set": {"clock_in_status": False}})
+                                
+    users_collection.update_one(
+    {"_id": user_obj_id},  # Match the document by user_id
+    {"$unset": {"clock_in": ""}})  # Remove the clock_out field)
+    
