@@ -16,24 +16,11 @@ users_collection.create_index("NetID", unique=True)
 
 
 def main():
-    # Connect to MongoDB
-    #connect_db()
-    
-    #Signup = True & Login = False 
-    # p2_redirect = P1.call_P1()
-    
+    start_prog = P1.call_P1()
     # if p2_redirect:
-    P2.call_P2(users_collection)
-    # else:
-    #     P3.call_P3()
-    
-    # P4.call_P4()
+    if start_prog:
+        P2.call_P2(users_collection)
         
-    
-        
-    
-    
-    
     
 if __name__ == "__main__":
     main()

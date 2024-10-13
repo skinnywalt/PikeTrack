@@ -4,9 +4,13 @@ import main_file as mf
 
 def call_P1():
     # Load an image from the assets folder
-    #st.image("assets/P1.png", caption="P1_page")
+    st.image("assets/P1.png", caption="P1_page")
 
-    print("P1")
+    checkbox_value = st.checkbox("START")
+    if checkbox_value:
+        return True
+    
+        
     
     #Return True if Signup
     #Return Flase if Login
