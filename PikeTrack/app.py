@@ -53,11 +53,41 @@ def clock_in(user_id):
 
 @app.route('/clock_out/<user_id>')
 def clock_out(user_id):
+
     user_obj_id = ObjectId(user_id)
-    time2 = time.time()
-    new_field = {"$set": {"clock_out": time2, "clock_in_status": False}}
-    users_collection.update_one({"_id": user_obj_id}, new_field)
-    return "Clocked Out successfully."
+    user = users_collection.find_one({"_id": user_obj_id})
+
+    if user and user.get('clock_in') and user.get('clock_in_status'):
+        clock_out_time = time.time()
+
+        # Calculate duration in hours
+        clock_in_time = user['clock_in']
+        duration_seconds = clock_out_time - clock_in_time
+        duration_hours = duration_seconds / 3600  # Converting seconds to hours
+        
+        new_duration = duration_hours
+
+        if 'duration_hours' in user:
+            new_duration += user['duration_hours']
+
+        new_field = {
+            "$set": {
+                "clock_out": 0,
+                "clock_in_status": False,
+                "duration_hours": new_duration,
+                "clock_in": 0
+            }
+        }
+        users_collection.update_one({"_id": user_obj_id}, new_field)
+        return f"Clocked Out successfully. Total duration: {duration_hours} hours"
+    else:
+        return "Error: User not found or missing clock in/clock out data."
+
+    # user_obj_id = ObjectId(user_id)
+    # time2 = time.time()
+    # new_field = {"$set": {"clock_out": time2, "clock_in_status": False}}
+    # users_collection.update_one({"_id": user_obj_id}, new_field)
+    # return "Clocked Out successfully."
 
 if __name__ == '__main__':
     app.run(debug=True)
