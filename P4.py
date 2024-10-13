@@ -13,14 +13,22 @@ def call_P4(user_id, users_collection):
     user = users_collection.find_one({"_id": user_obj_id})
     
     if user:
+        #import pdb; pdb.set_trace()
         #clkin = #users_collection.find({"clock_in_status" : True})
         if user.get("clock_in_status") == True:
             st.button("Clock Out")
             mf.clock_out(user_id)
         else:
-            st.button("Clock In")
-            mf.clock_in(user_id)
+            id = st.text_input("") 
+            if st.button("Clock In"):
+                if id:
+                    mf.clock_in(user_id)
+            
+                
     
     
     # elif st.button("Clock out"):
     #     mf.clock_in(user_id)
+    
+#     crop_variety = st.text_input("Crop Variety", "TME 419", key="crop_variety",disabled=True,label_visibility="visible")
+# plot_name = st.selectbox("Plot Name/Code", plot_name_options, key="plot_name")

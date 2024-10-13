@@ -12,6 +12,7 @@ client = MongoClient("mongodb+srv://test_user1:test_user1@cluster0.7wn3d.mongodb
 db = client['library']
 users_collection = db['hour_tracker']
 sessions_collection = db['sessions']
+users_collection.create_index("NetID", unique=True)
 
 
 def main():
@@ -42,8 +43,11 @@ def add_user(name, email, netID):
     #Validate first 
     
     #User Validation
-    user_obj_id = ObjectId(user_id)
-    user = users_collection.find_one({"_id": user_obj_id})
+    #If NewUser already exists goto Login Page
+    # user_obj_id = ObjectId(user_id)
+    # user = users_collection.find_one({"_id": user_obj_id})
+    
+    user = users_collection.find_one({"NetID": netID})
     
     if user:
         return False  
@@ -65,7 +69,7 @@ def clock_in(user_id):
     result = users_collection.update_one({"_id": user_obj_id}, new_field)
     
     users_collection.update_one({"_id": user_obj_id}, {"$set": {"clock_in_status": True}})
-    return 
+    #return 
 
 def clock_out(user_id):
     user_obj_id = ObjectId(user_id)
