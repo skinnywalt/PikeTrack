@@ -5,6 +5,7 @@ import P1, P3, P4
 
 
 def call_P2():
+    st.image("assets/letter.png", caption="Letter Image", use_column_width=True)
     st.header("Add a New User")
     name = st.text_input("Name")
     email = st.text_input("Email")
