@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,6 +12,98 @@
         <input type="text" name="name" placeholder="Name"><br>
         <input type="email" name="email" placeholder="Email"><br>
         <input type="text" name="netID" placeholder="NetID"><br>
+        <button type="submit">Add User</button>
+    </form>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add User</title>
+
+    <!-- Link to Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS Styling -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f5; /* Light grey background */
+            color: #333;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        form {
+            background: white; /* White background for form */
+            padding: 2rem;
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            width: 300px; /* Fixed width for form */
+            text-align: center; /* Center align text */
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            width: 100%; /* Full width inputs */
+            padding: 10px; /* Padding inside inputs */
+            margin: 0.5rem 0; /* Space between inputs */
+            border: 1px solid #ccc; /* Light grey border */
+            border-radius: 5px; /* Rounded corners */
+            font-size: 1rem; /* Font size */
+        }
+
+        button {
+            width: 100%; /* Full width button */
+            padding: 10px; /* Padding inside button */
+            background-color: #ff6347; /* Tomato background color */
+            color: white; /* White text color */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            font-size: 1.1rem; /* Font size */
+            cursor: pointer; /* Pointer cursor */
+            transition: background-color 0.3s; /* Smooth transition */
+        }
+
+        button:hover {
+            background-color: #ff4500; /* Darker tomato color on hover */
+        }
+
+        @media (max-width: 400px) {
+            h1 {
+                font-size: 2rem; /* Smaller font size for smaller screens */
+            }
+
+            form {
+                width: 90%; /* Responsive form width */
+            }
+        }
+    </style>
+</head>
+<body>
+    <form method="post">
+        <h1>Add a New User</h1>
+        <input type="text" name="name" placeholder="Name" required><br>
+        <input type="email" name="email" placeholder="Email" required><br>
+        <input type="text" name="netID" placeholder="NetID" required><br>
         <button type="submit">Add User</button>
     </form>
 </body>
