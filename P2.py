@@ -21,6 +21,7 @@ def call_P2(users_collection):
                 P4.call_P4(user_id, users_collection)
             else:
                 #The user already exist so Login
+                st.error(f"NetID : {netID} already exists, Please Login.")
                 P3.call_P3(users_collection, user_id)
         else:
             st.error("Please provide both name and email.")

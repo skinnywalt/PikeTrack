@@ -52,7 +52,7 @@ def add_user(name, email, netID):
     if user:
         return False  
     else:
-        user = {"Name": name, "NetID": netID, "Student Email": email, "clock_in_status" : False}
+        user = {"Name": name, "Student Email": email, "NetID": netID, "clock_in_status" : False}
         result = users_collection.insert_one(user) 
         #st.error(f"Invalid NedID: {netID} or Email : {email}")
         return result.inserted_id

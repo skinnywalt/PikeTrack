@@ -15,14 +15,17 @@ def call_P4(user_id, users_collection):
     if user:
         #import pdb; pdb.set_trace()
         #clkin = #users_collection.find({"clock_in_status" : True})
-        if user.get("clock_in_status") == True:
-            st.button("Clock Out")
+        # if user.get("clock_in_status") == True:
+        #     st.button("Clock Out")
+        #     mf.clock_out(user_id)
+        # else:
+        #     st.button("Clock In")
+        #     mf.clock_in(user_id) 
+        status = st.selectbox("Select Status", ("Clock In", "Clock Out"))
+        if status == "Clock In":
+            mf.clock_in(user_id)
+        elif status == "Clock Out":
             mf.clock_out(user_id)
-        else:
-            id = st.text_input("") 
-            if st.button("Clock In"):
-                if id:
-                    mf.clock_in(user_id)
             
                 
     
